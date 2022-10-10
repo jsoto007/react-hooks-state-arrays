@@ -10,8 +10,14 @@ function SpicyFoodList() {
     setFoods(newFoodArray);
   }
 
+  function handleLiClick(removedFood){
+    const newFoodsRemoved = [];
+    const newRemovedFoodArray = [...foods, newFoodsRemoved.splice(removedFood, 1)]
+    setFoods(newRemovedFoodArray);
+  }
+
   const foodList = foods.map((food) => (
-    <li key={food.id}>
+    <li key={food.id} onClick={()=>handleLiClick(food.id)}>
       {food.name} | Heat: {food.heatLevel} | Cuisine: {food.cuisine}
     </li>
   ));
