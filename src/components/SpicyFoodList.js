@@ -10,14 +10,28 @@ function SpicyFoodList() {
     setFoods(newFoodArray);
   }
 
-  function handleLiClick(removedFood){
-    const newFoodsRemoved = [];
-    const newRemovedFoodArray = [...foods, newFoodsRemoved.splice(removedFood, 1)]
-    setFoods(newRemovedFoodArray);
+  function handleLiClick(id){
+    const newFoodArray = foods.filter((food) => food.id !== id);
+    setFoods(newFoodArray);
+    
+  }
+
+  function handleMouseOver(id){
+    const newFoodArray = foods.map((food) => {
+      if (food.id === id) {
+        return {
+          ...food, 
+          heatLevel: food.heatLevel + 1, 
+        };
+      } else {
+        return food;
+      }
+    });
+    setFoods(newFoodArray);
   }
 
   const foodList = foods.map((food) => (
-    <li key={food.id} onClick={()=>handleLiClick(food.id)}>
+    <li key={food.id} onPointerEnter={()=>handleMouseOver(food.id)}>
       {food.name} | Heat: {food.heatLevel} | Cuisine: {food.cuisine}
     </li>
   ));
@@ -28,6 +42,9 @@ function SpicyFoodList() {
       <ul>{foodList}</ul>
     </div>
   );
+  
 }
+
+
 
 export default SpicyFoodList;
